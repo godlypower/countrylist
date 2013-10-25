@@ -1,0 +1,22 @@
+{
+    "name": "alcohol/countrylist",
+    "description": "Countries library",
+    "keywords": ["countries", "library", "ISO 3166-1"],
+    "homepage": "https://github.com/alcohol/countrylist",
+    "license": "WTFPL",
+    "authors": [
+        {
+            "name": "Rob Bast",
+            "email": "rob.bast@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Alcohol\\CountryList": "source/",
+            "Alcohol\\CountryList\\Tests": "tests/"
+        }
+    }
+}
