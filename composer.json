@@ -1,6 +1,6 @@
 {
     "name": "alcohol/countrylist",
-    "description": "Countries library",
+    "description": "Countries library for PHP based on ISO 3166-1",
     "keywords": ["countries", "library", "ISO 3166-1"],
     "homepage": "https://github.com/alcohol/countrylist",
     "license": "WTFPL",
