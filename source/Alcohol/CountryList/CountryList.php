@@ -20,7 +20,7 @@ final class CountryList
             $json = json_decode(file_get_contents(__DIR__.'/../../../data/countries.json'), true);
             $countries = array();
             foreach ($json as $country) {
-                $countries[$country['code']] = $country;
+                $countries[$country['alpha2']] = $country;
             }
         }
 
@@ -40,7 +40,9 @@ final class CountryList
         }
 
         return new Country(
-            $this->countries[$code]['code'],
+            $this->countries[$code]['alpha2'],
+            $this->countries[$code]['alpha3'],
+            $this->countries[$code]['numeric'],
             $this->countries[$code]['name'],
             $this->countries[$code]['currency']
         );
@@ -54,7 +56,9 @@ final class CountryList
         return array_map(
             function ($country) {
                 return new Country(
-                    $country['code'],
+                    $country['alpha2'],
+                    $country['alpha3'],
+                    $country['numeric'],
                     $country['name'],
                     $country['currency']
                 );

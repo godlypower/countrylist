@@ -7,7 +7,17 @@ class Country
     /**
      * @var string
      */
-    public $code;
+    public $alpha2;
+
+    /**
+     * @var string
+     */
+    public $alpha3;
+
+    /**
+     * @var string
+     */
+    public $numeric;
 
     /**
      * @var string
@@ -20,13 +30,17 @@ class Country
     public $currency;
 
     /**
-     * @param string $code
+     * @param string $alpha2
+     * @param string $alpha3
+     * @param string $numeric
      * @param string $name
      * @param string $currency
      */
-    public function __construct($code, $name, $currency)
+    public function __construct($alpha2, $alpha3, $numeric, $name, $currency)
     {
-        $this->code = $code;
+        $this->alpha2 = $alpha2;
+        $this->alpha3 = $alpha3;
+        $this->numeric = $numeric;
         $this->name = $name;
         $this->currency = $currency;
     }

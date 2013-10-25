@@ -29,7 +29,13 @@ class CountryListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             array_map(
                 function ($country) {
-                    return new Country($country['code'], $country['name'], $country['currency']);
+                    return new Country(
+                        $country['alpha2'],
+                        $country['alpha3'],
+                        $country['numeric'],
+                        $country['name'],
+                        $country['currency']
+                    );
                 },
                 $this->countries()
             ),
@@ -42,7 +48,7 @@ class CountryListTest extends \PHPUnit_Framework_TestCase
         $json = json_decode(file_get_contents(__DIR__.'/../../../../data/countries.json'), true);
         $countries = array();
         foreach ($json as $country) {
-            $countries[$country['code']] = $country;
+            $countries[$country['alpha2']] = $country;
         }
         $reflection = new \ReflectionClass('Alcohol\CountryList\CountryList');
         $property = $reflection->getProperty('countries');
@@ -54,9 +60,30 @@ class CountryListTest extends \PHPUnit_Framework_TestCase
     public function countries()
     {
         return array(
-            'NL' => array('code' => 'NL', 'name' => 'Netherlands', 'currency' => 'EUR'),
-            'FR' => array('code' => 'FR', 'name' => 'France', 'currency' => 'EUR'),
-            'UK' => array('code' => 'UK', 'name' => 'United Kingdom', 'currency' => array('EUR', 'GBP'))
+            'NL' => array(
+                'alpha2' => 'NL',
+                'alpha3' => 'NLD',
+                'numeric' => '528',
+                'name' => 'Netherlands',
+                'currency' => 'EUR'
+            ),
+            'FR' => array(
+                'alpha2' => 'FR',
+                'alpha3' => 'FRA',
+                'numeric' => '250',
+                'name' => 'France',
+                'currency' => 'EUR'
+            ),
+            'GB' => array(
+                'alpha2' => 'GB',
+                'alpha3' => 'GBR',
+                'numeric' => '826',
+                'name' => 'United Kingdom',
+                'currency' => array(
+                    'EUR',
+                    'GBP'
+                )
+            )
         );
     }
 
@@ -67,8 +94,14 @@ class CountryListTest extends \PHPUnit_Framework_TestCase
             function ($country) use ($countries) {
                 return array(
                     new CountryList($countries),
-                    $country['code'],
-                    new Country($country['code'], $country['name'], $country['currency'])
+                    $country['alpha2'],
+                    new Country(
+                        $country['alpha2'],
+                        $country['alpha3'],
+                        $country['numeric'],
+                        $country['name'],
+                        $country['currency']
+                    )
                 );
             },
             $countries
