@@ -9,7 +9,7 @@ $country = $repository->findByCode('nl');
 
 Result:
 
-```php
+```
 Alcohol\CountryList\Country Object
 (
     [alpha2] => NL
