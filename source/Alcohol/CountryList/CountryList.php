@@ -4,7 +4,7 @@ namespace Alcohol\CountryList;
 
 use Alcohol\CountryList\Country;
 
-final class CountryList
+class CountryList
 {
     /**
      * @var array
@@ -17,14 +17,23 @@ final class CountryList
     public function __construct($countries = array())
     {
         if (empty($countries)) {
-            $json = json_decode(file_get_contents(__DIR__.'/../../../data/countries.json'), true);
-            $countries = array();
-            foreach ($json as $country) {
-                $countries[$country['alpha2']] = $country;
-            }
+            $countries = $this->loadFromDataDir();
         }
 
         $this->countries = $countries;
+    }
+
+    /**
+     * @return array
+     */
+    final protected function loadFromDataDir()
+    {
+        $countries = json_decode(file_get_contents(__DIR__.'/../../../data/countries.json'), true);
+        $return = array();
+        foreach ($countries as $country) {
+            $return[$country['alpha2']] = $country;
+        }
+        return $return;
     }
 
     /**
@@ -35,7 +44,7 @@ final class CountryList
     {
         $code = strtoupper($code);
 
-        if (false === array_key_exists($code, $this->countries)) {
+        if (!isset($this->countries[$code])) {
             return false;
         }
 
